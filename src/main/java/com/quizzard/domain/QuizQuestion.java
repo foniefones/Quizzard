@@ -1,4 +1,4 @@
-package com.quizzard;
+package com.quizzard.domain;
 
 public class QuizQuestion {
     private int id;
