@@ -13,7 +13,6 @@ public class JDBCQuizRepository implements QuizRepository {
     @Autowired
     private DataSource dataSource;
 
-
-
+    
 
 }
