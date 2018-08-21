@@ -1,7 +1,7 @@
 package com.quizzard.Repository;
 
-import com.quizzard.QuizCollection;
-import com.quizzard.QuizQuestion;
+import com.quizzard.domain.QuizCollection;
+import com.quizzard.domain.QuizQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.quizzard.domain.User;
