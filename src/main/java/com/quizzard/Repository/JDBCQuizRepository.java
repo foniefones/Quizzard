@@ -1,4 +1,7 @@
 package com.quizzard.Repository;
 
-public class JDBCQuizRepository {
+import org.springframework.stereotype.Component;
+
+@Component
+public class JDBCQuizRepository implements QuizRepository {
 }
