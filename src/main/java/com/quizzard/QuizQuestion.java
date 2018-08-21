@@ -7,6 +7,7 @@ public class QuizQuestion {
     private String optionTwo;
     private String optionThree;
     private String optionFour;
+    private int result = 0;
 
     public QuizQuestion(int id, String text, String optionOne, String optionTwo, String optionThree, String optionFour) {
         this.id = id;
@@ -39,5 +40,16 @@ public class QuizQuestion {
 
     public String getOptionFour() {
         return optionFour;
+    }
+    public int getResult(){
+
+        return result;
+    }
+    public void setResult(boolean correct){
+        if(correct){
+            result = 1;
+        }else{
+            result = 2;
+        }
     }
 }
