@@ -37,5 +37,4 @@ public class QuizController {
            return new RedirectView("login");
        }
     }
-
 }
