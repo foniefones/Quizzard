@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.quizzard.domain.User;
 import org.springframework.stereotype.Component;
+
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 @Component
@@ -22,10 +20,24 @@ public class JDBCQuizRepository implements QuizRepository {
 
     @Override
     public User login(String name, String password) {
-        if(name.equals("hej"))
-            return new User("hej", "mail");
-        else
-            return null;
+        System.out.println("connecting to database");
+        System.out.println(name + " " + password);
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT username, Mail FROM Users WHERE username=? AND Password=?")) {
+            ps.setString(1, name);
+            ps.setString(2, password);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next())
+                    return rsUser(rs);
+            }
+
+        } catch (Exception e) {
+
+        }
+        return null;
+
+
+
     }
 
     @Override
@@ -42,6 +54,10 @@ public class JDBCQuizRepository implements QuizRepository {
 
         }
         return null;
+    }
+
+    private User rsUser(ResultSet rs) throws SQLException {
+        return new User(rs.getString("username"), rs.getString("Mail"));
     }
 
     private QuizQuestion rsQuizQuestion(ResultSet rs) throws SQLException {
