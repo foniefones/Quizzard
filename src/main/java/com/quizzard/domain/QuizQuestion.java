@@ -41,15 +41,27 @@ public class QuizQuestion {
     public String getOptionFour() {
         return optionFour;
     }
-    public int getResult(){
+
+    public int getResult() {
 
         return result;
     }
-    public void setResult(boolean correct){
-        if(correct){
+
+    public void setResult(boolean correct) {
+        if (correct) {
             result = 1;
-        }else{
+        } else {
             result = 2;
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.id + "\n" +
+                this.text + "\n" +
+                this.optionOne + "\n" +
+                this.optionTwo + "\n" +
+                this.optionThree + "\n" +
+                this.optionFour;
     }
 }

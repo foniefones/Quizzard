@@ -69,6 +69,33 @@ public class JDBCQuizRepository implements QuizRepository {
     }
 
     @Override
+    public QuizQuestion getQuestion(int id) {
+        try(Connection conn = dataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Questions WHERE id=?")) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rsQuizQuestion(rs);
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    @Override
+    public int getQuestionSize() {
+        try(Connection conn = dataSource.getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS rows FROM Questions")) {
+            rs.next();
+            return rs.getInt("rows");
+        } catch (Exception e) {
+
+        }
+        return -1;
+    }
+
+    @Override
     public QuizCollection getQuestions() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();

@@ -1,6 +1,7 @@
 package com.quizzard.Controller;
 
 import com.quizzard.Repository.QuizRepository;
+import com.quizzard.domain.QuizQuestion;
 import com.quizzard.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,14 @@ public class QuizController {
     @GetMapping("/login")
     public ModelAndView loginView() {
         return new ModelAndView("login");
+    }
+
+    @GetMapping("/startquiz")
+    public ModelAndView quizView() {
+        System.out.println(quizRepository.getQuestionSize());
+        QuizQuestion qq = quizRepository.getQuestion(1);
+        System.out.println(qq.toString());
+        return new ModelAndView("quiz");
     }
 
     @GetMapping("/register")
