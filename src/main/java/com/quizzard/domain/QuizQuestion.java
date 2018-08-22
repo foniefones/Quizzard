@@ -9,6 +9,7 @@ public class QuizQuestion {
     private String optionFour;
     private int result = 0;
 
+
     public QuizQuestion(int id, String text, String optionOne, String optionTwo, String optionThree, String optionFour) {
         this.id = id;
         this.text = text;
