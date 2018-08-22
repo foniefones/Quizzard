@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="quiz.css" href="../static/quiz.css" />
+    <link rel="stylesheet" type="text/css" th:href="quiz.css" href="../static/quiz.css"/>
 
 </head>
 <body>
-<header><div class="headerspace"></div>QUIZZARD!<div class="headerspace"></div></header>
+<header>
+    <div class="headerspace"></div>
+    QUIZZARD!
+    <div class="headerspace"></div>
+</header>
 <div class="side"></div>
 <div class="main">
-<form action="/register" method="POST">
-    <h1>Ange användarnamn och lösenord för att logga in:</h1>
-    <p th:text="${errormsg}"></p>
-    Användarnamn:<input type="text" name="name" />
-    Lösenord:<input type ="text" name ="password" />
-    Email:<input type="text" name="email" />
-    <input type="submit" value="submit" />
-</form>
+    <div class="formdiv">
+        <form action="/register" method="POST">
+            <h1>Ange dina uppgifter</h1>
+            <p th:text="${errormsg}"></p>
+            <p>Användarnamn:<input type="text" name="name"/></p>
+            <p>Lösenord:<input type="text" name="password"/></p>
+            <p>Email:<input type="text" name="email"/></p>
+            <input type="submit" value="Nytt konto"/>
+        </form>
+    </div>
 </div>
 <div class="side" id="sideright"></div>
 </body>
