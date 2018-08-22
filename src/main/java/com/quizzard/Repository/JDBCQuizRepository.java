@@ -20,8 +20,7 @@ public class JDBCQuizRepository implements QuizRepository {
 
     @Override
     public User login(String name, String password) {
-        System.out.println("connecting to database");
-        System.out.println(name + " " + password);
+ 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT username, Mail FROM Users WHERE username=? AND Password=?")) {
             ps.setString(1, name);
@@ -38,6 +37,35 @@ public class JDBCQuizRepository implements QuizRepository {
 
 
 
+    }
+
+    @Override
+    public boolean userExists(String name, String email) {
+        try(Connection conn = dataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("SELECT username, mail FROM Users WHERE username=? OR mail=?")) {
+            ps.setString(1, name);
+            ps.setString(2, email);
+            try(ResultSet rs = ps.executeQuery()) {
+                if(rs.next())
+                    return true;
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
+
+    @Override
+    public void createNewUser(String name, String password, String email) {
+        try(Connection conn = dataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (username, password, mail) VALUES (?, ?, ?)")) {
+            ps.setString(1,name);
+            ps.setString(2,password);
+            ps.setString(3,email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

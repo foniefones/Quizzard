@@ -22,6 +22,23 @@ public class QuizController {
         return new ModelAndView("login");
     }
 
+    @GetMapping("/register")
+    public ModelAndView register() {
+        return new ModelAndView("register");
+    }
+
+    @PostMapping("/register")
+    public ModelAndView newAccount(String name, String password, String email) {
+        if(quizRepository.userExists(name, email) || name.isEmpty() || email.isEmpty() || password.isEmpty()){
+            System.out.println("user already exists");
+            return new ModelAndView("register").addObject("errormsg", "Fel vid registrering");
+        } else {
+            quizRepository.createNewUser(name, password, email);
+            System.out.println("new user created");
+            return new ModelAndView("redirect:/menu");
+        }
+    }
+
     @GetMapping("/menu")
     public ModelAndView menu() {
         return new ModelAndView("menu");
