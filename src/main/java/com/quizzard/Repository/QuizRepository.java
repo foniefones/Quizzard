@@ -1,6 +1,7 @@
 package com.quizzard.Repository;
 
 import com.quizzard.domain.QuizCollection;
+import com.quizzard.domain.QuizQuestion;
 import com.quizzard.domain.User;
 
 public interface QuizRepository {
@@ -8,4 +9,6 @@ public interface QuizRepository {
     boolean userExists(String name, String email);
     void createNewUser(String name, String password, String email);
     QuizCollection getQuestions();
+    int getQuestionSize();
+    QuizQuestion getQuestion(int id);
 }

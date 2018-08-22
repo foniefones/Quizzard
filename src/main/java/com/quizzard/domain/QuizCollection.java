@@ -6,6 +6,7 @@ import java.util.List;
 public class QuizCollection {
     private List<QuizQuestion> questions = new ArrayList<>();
     private int currentQuestion = 0;
+    private int currentAlternative = 0;
 
     public void addQuestion(QuizQuestion question){
         questions.add(question);
@@ -16,9 +17,17 @@ public class QuizCollection {
     public int getSize(){
         return questions.size();
     }
+    public int getCurrentQuestion() {
+        return currentQuestion;
+    }
     public QuizQuestion getNextQuestion(){
+
+
         return questions.get(currentQuestion++);
     }
+
+
+
     public List<QuizQuestion> getQuestions(boolean correct){
         List<QuizQuestion> correctList = new ArrayList<>();
         for(QuizQuestion question : questions){
