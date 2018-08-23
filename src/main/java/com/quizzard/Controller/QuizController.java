@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 public class QuizController {
@@ -50,15 +53,28 @@ public class QuizController {
         if(session.getAttribute("user") != null) {
 
 
-            System.out.println(quizRepository.getQuestionSize());
-            QuizQuestion qq = quizRepository.getQuestion(1);
-            System.out.println(qq.toString());
+
             QuizCollection quizCollection = new QuizCollection();
             session.setAttribute("qq", quizCollection);
-            quizCollection.addQuestion(quizRepository.getQuestion(1));
-            quizCollection.addQuestion(quizRepository.getQuestion(2));
-            quizCollection.addQuestion(quizRepository.getQuestion(3));
-            quizCollection.addQuestion(quizRepository.getQuestion(4));
+
+            int max = quizRepository.getQuestionSize();
+            Random rand = new Random();
+
+            List<Integer> list = new ArrayList<>();
+            while(list.size() < 5) {
+                int number = rand.nextInt(max);
+                if(!list.contains(number)) {
+                    list.add(number);
+                }
+            }
+            for(int i : list) {
+                quizCollection.addQuestion(quizRepository.getQuestion(i));
+            }
+//                    QuizQuestion qq = quizRepository.getQuestion(1);
+//            quizCollection.addQuestion(quizRepository.getQuestion(1));
+//            quizCollection.addQuestion(quizRepository.getQuestion(2));
+//            quizCollection.addQuestion(quizRepository.getQuestion(3));
+//            quizCollection.addQuestion(quizRepository.getQuestion(4));
 
 
             return new ModelAndView("quiz")

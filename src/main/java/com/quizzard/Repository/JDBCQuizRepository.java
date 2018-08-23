@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -116,13 +118,27 @@ public class JDBCQuizRepository implements QuizRepository {
     }
 
     private QuizQuestion rsQuizQuestion(ResultSet rs) throws SQLException {
+
+        List<String> list = new ArrayList<>();
+        list.add(rs.getString("alt_1"));
+        list.add(rs.getString("alt_2"));
+        list.add(rs.getString("alt_3"));
+        list.add(rs.getString("correctAnswer"));
+
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+        Collections.shuffle(list);
+
         return new QuizQuestion(
                 rs.getInt("id"),
                 rs.getString("question"),
-                rs.getString("alt_1"),
-                rs.getString("alt_2"),
-                rs.getString("alt_3"),
-                rs.getString("correctAnswer")
+                list.get(0),
+                list.get(1),
+                list.get(2),
+                list.get(3)
+
         );
     }
 }
