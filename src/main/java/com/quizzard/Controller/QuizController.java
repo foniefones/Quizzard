@@ -68,6 +68,26 @@ public class QuizController {
             return new ModelAndView("redirect:/login");
         }
     }
+    @GetMapping("/quiz")
+    public ModelAndView quiz(HttpSession session) {
+
+        if(session.getAttribute("user") != null) {
+
+
+
+            QuizCollection qq = (QuizCollection) session.getAttribute("qq");
+
+            if(qq.getCurrentQuestion() == qq.getSize())
+                return new ModelAndView("result")
+                        .addObject("qq", qq);
+            else
+                return new ModelAndView("quiz")
+                    .addObject("qq", qq);
+
+        }  else {
+            return new ModelAndView("redirect:/login");
+        }
+    }
 
     @GetMapping("/register")
     public ModelAndView register() {
