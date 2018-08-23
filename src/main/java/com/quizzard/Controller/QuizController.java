@@ -34,6 +34,7 @@ public class QuizController {
         System.out.println("ans: " + number);
         QuizCollection qq = (QuizCollection) session.getAttribute("qq");
         QuizQuestion question = qq.getQuestionOnNumber(qq.getCurrentQuestion());
+        question.setChoice(number);
         String answer = quizRepository.getAnswer(question.getId());
         String input = question.getOptionOnNumber(number);
 
