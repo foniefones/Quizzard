@@ -65,4 +65,14 @@ public class QuizQuestion {
                 this.optionThree + "\n" +
                 this.optionFour;
     }
+
+    public String getOptionOnNumber(int number) {
+        switch (number) {
+            case 1: return optionOne;
+            case 2: return optionTwo;
+            case 3: return optionThree;
+            case 4: return optionFour;
+        }
+        return "";
+    }
 }

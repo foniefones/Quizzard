@@ -33,7 +33,22 @@ public class QuizController {
     public ModelAndView guess(HttpSession session, @PathVariable int number) {
         System.out.println("ans: " + number);
         QuizCollection qq = (QuizCollection) session.getAttribute("qq");
-        return new ModelAndView("redirect:/login");
+        QuizQuestion question = qq.getQuestionOnNumber(qq.getCurrentQuestion());
+        String answer = quizRepository.getAnswer(question.getId());
+        String input = question.getOptionOnNumber(number);
+        System.out.println(answer);
+        System.out.println(input);
+        if(answer.equals(input)) {
+            System.out.println("correct");
+        } else{
+            System.out.println("nope");
+        }
+        return new ModelAndView("redirect:/answeredquestion");
+    }
+
+    @GetMapping("answeredquestion")
+    public ModelAndView answeredquestion () {
+        return new ModelAndView("quiz");
     }
 
     @GetMapping("/")
@@ -69,6 +84,7 @@ public class QuizController {
             for(int i : list) {
                 quizCollection.addQuestion(quizRepository.getQuestion(i));
             }
+            quizCollection.incrementQuestion();
             session.setAttribute("qq", quizCollection);
 
             return new ModelAndView("quiz");
@@ -77,17 +93,19 @@ public class QuizController {
             return new ModelAndView("redirect:/login");
         }
     }
-    @GetMapping("/quiz")
+    @GetMapping("/nextquestion")
     public ModelAndView quiz(HttpSession session) {
 
         if(session.getAttribute("user") != null) {
 
             QuizCollection qq = (QuizCollection) session.getAttribute("qq");
-
-            if(qq.getCurrentQuestion() == qq.getSize())
+            if(qq.getCurrentQuestion() == qq.getSize()) {
                 return new ModelAndView("result");
-            else
+            }
+            else {
+                qq.incrementQuestion();
                 return new ModelAndView("quiz");
+            }
 
         }  else {
             return new ModelAndView("redirect:/login");
