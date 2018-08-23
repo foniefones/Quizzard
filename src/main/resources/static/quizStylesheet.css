@@ -10,6 +10,12 @@ header {
     height: 70px;
 }
 
+.correct{
+    background-color: lawngreen;
+}
+.wrong{
+    background-color: indianred;
+}
 .headerspace {
     height: 10px;
 }
