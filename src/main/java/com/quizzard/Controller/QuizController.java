@@ -30,32 +30,43 @@ public class QuizController {
     public ModelAndView guess(HttpSession session, @PathVariable int number) {
         System.out.println("ans: " + number);
         QuizCollection qq = (QuizCollection) session.getAttribute("qq");
+        return new ModelAndView("redirect:/login");
+    }
 
+    @GetMapping("/")
+    public ModelAndView index() {
+        return new ModelAndView("redirect:/login");
+    }
 
-
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpSession session) {
+        session.invalidate();
         return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/startquiz")
     public ModelAndView quizView(HttpSession session) {
-        System.out.println(quizRepository.getQuestionSize());
-        QuizQuestion qq = quizRepository.getQuestion(1);
-        System.out.println(qq.toString());
-        QuizCollection quizCollection = new QuizCollection();
-        session.setAttribute("qq", quizCollection);
-        quizCollection.addQuestion(quizRepository.getQuestion(1));
-        quizCollection.addQuestion(quizRepository.getQuestion(2));
-        quizCollection.addQuestion(quizRepository.getQuestion(3));
-        quizCollection.addQuestion(quizRepository.getQuestion(4));
+
+        if(session.getAttribute("user") != null) {
 
 
-        return new ModelAndView("quiz")
-                .addObject("qq", quizCollection);
-//                .addObject("question", qq.getText())
-//                .addObject("alt1", qq.getOptionOne())
-//                .addObject("alt2", qq.getOptionTwo())
-//                .addObject("alt3", qq.getOptionThree())
-//                .addObject("alt4", qq.getOptionFour());
+            System.out.println(quizRepository.getQuestionSize());
+            QuizQuestion qq = quizRepository.getQuestion(1);
+            System.out.println(qq.toString());
+            QuizCollection quizCollection = new QuizCollection();
+            session.setAttribute("qq", quizCollection);
+            quizCollection.addQuestion(quizRepository.getQuestion(1));
+            quizCollection.addQuestion(quizRepository.getQuestion(2));
+            quizCollection.addQuestion(quizRepository.getQuestion(3));
+            quizCollection.addQuestion(quizRepository.getQuestion(4));
+
+
+            return new ModelAndView("quiz")
+                    .addObject("qq", quizCollection);
+
+        }  else {
+            return new ModelAndView("redirect:/login");
+        }
     }
 
     @GetMapping("/register")
@@ -76,8 +87,12 @@ public class QuizController {
     }
 
     @GetMapping("/menu")
-    public ModelAndView menu() {
-        return new ModelAndView("menu");
+    public ModelAndView menu(HttpSession session) {
+
+        if(session.getAttribute("user") != null)
+            return new ModelAndView("menu");
+        else
+            return new ModelAndView("redirect:/login");
     }
 
     @PostMapping("/userlogin")
