@@ -14,8 +14,8 @@
 <div class="side"></div>
 <div class="main" th:with="question=${qq.nextQuestion}">
     <h1>Dags att spela QUIZZAAARD!!!!</h1>
-    <p>Antal rätt svar: X</p>
-    <p>Antal fel svar: Y</p>
+    <p>Antal rätt svar: <span th:text="${qq.right}"></span></p>
+    <p>Antal fel svar: <span th:text="${qq.wrong}"></span></p>
     <h2>Fråga <span th:text="${qq.currentQuestion}"></span></h2>
     <p th:text="${question.text}"></p>
     <form action="/guess/1" method="POST">

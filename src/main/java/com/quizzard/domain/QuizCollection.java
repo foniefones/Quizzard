@@ -25,6 +25,25 @@ public class QuizCollection {
 
         return questions.get(currentQuestion++);
     }
+    public int getRight() {
+        int right =0;
+        for (QuizQuestion question: questions) {
+            if (question.getResult() == 1) {
+                right++;
+            }
+        }
+        return right;
+    }
+
+    public int getWrong() {
+        int wrong =0;
+        for (QuizQuestion question: questions) {
+            if (question.getResult() == 2) {
+                wrong++;
+            }
+        }
+        return wrong;
+    }
 
 
 
