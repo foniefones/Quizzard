@@ -85,6 +85,20 @@ public class JDBCQuizRepository implements QuizRepository {
     }
 
     @Override
+    public String getAnswer(int id) {
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT correctanswer FROM Questions WHERE id=?")) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getString(1);
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    @Override
     public int getQuestionSize() {
         try(Connection conn = dataSource.getConnection();
         Statement stmt = conn.createStatement();

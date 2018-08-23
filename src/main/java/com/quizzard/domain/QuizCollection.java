@@ -21,10 +21,13 @@ public class QuizCollection {
         return currentQuestion;
     }
     public QuizQuestion getNextQuestion(){
-
-
-        return questions.get(currentQuestion++);
+        return questions.get(currentQuestion -1);
     }
+
+    public void incrementQuestion() {
+        currentQuestion++;
+    }
+
     public int getRight() {
         int right =0;
         for (QuizQuestion question: questions) {

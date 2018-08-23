@@ -11,4 +11,5 @@ public interface QuizRepository {
     QuizCollection getQuestions();
     int getQuestionSize();
     QuizQuestion getQuestion(int id);
+    String getAnswer(int id);
 }

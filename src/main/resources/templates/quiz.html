@@ -12,11 +12,11 @@
     <div class="headerspace"></div>
 </header>
 <div class="side"></div>
-<div class="main" th:with="question=${qq.nextQuestion}">
+<div class="main" th:with="question=${session.qq.nextQuestion}">
     <h1>Dags att spela QUIZZAAARD!!!!</h1>
-    <p>Antal rätt svar: <span th:text="${qq.right}"></span></p>
-    <p>Antal fel svar: <span th:text="${qq.wrong}"></span></p>
-    <h2>Fråga <span th:text="${qq.currentQuestion}"></span></h2>
+    <p>Antal rätt svar: <span th:text="${session.qq.right}"></span></p>
+    <p>Antal fel svar: <span th:text="${session.qq.wrong}"></span></p>
+    <h2>Fråga <span th:text="${session.qq.currentQuestion}"></span></h2>
     <p th:text="${question.text}"></p>
     <form action="/guess/1" method="POST">
         <p>
@@ -53,7 +53,7 @@
         <!--<span th:text="${question.optionFour}"></span></p>-->
 
     <p>"rätt svar visas efter val är gjort"</p>
-    <a href="/quiz"><button>Nästa fråga</button></a>
+    <a href="/nextquestion"><button>Nästa fråga</button></a>
 </div>
 <div class="side" id="sideright"></div>
 </body>
