@@ -36,12 +36,12 @@ public class QuizController {
         QuizQuestion question = qq.getQuestionOnNumber(qq.getCurrentQuestion());
         String answer = quizRepository.getAnswer(question.getId());
         String input = question.getOptionOnNumber(number);
-        System.out.println(answer);
-        System.out.println(input);
+
+
         if(answer.equals(input)) {
-            System.out.println("correct");
+            question.setResult(true);
         } else{
-            System.out.println("nope");
+            question.setResult(false);
         }
         return new ModelAndView("redirect:/answeredquestion");
     }
