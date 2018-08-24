@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" th:href="quizStylesheet.css" href="../static/quizStylesheet.css" />
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="quizStylesheet.css" href="../static/quizStylesheet.css"/>
     <title>Title</title>
 </head>
 <body>
-<header><div class="headerspace"></div>QUIZZARD!<div class="headerspace"></div></header>
-<div class="side"></div>
+<header>
+    <div class="headerspace"></div>
+    QUIZZARD!
+    <div class="headerspace"></div>
+</header>
+<div class="side">
+    <div class="formdiv">
+        <div>
+            <p>Välkommen</p>
+            <p th:text="${session.user.username}"></p>
+
+            <p th:text="${session.user.correct}"> </p>
+            <p th:text="${session.user.wrong}"> </p>
+            <p th:text="${session.user.stats}"> </p>
+            <a href="/logout">
+                <button>Logga ut</button>
+            </a>
+
+        </div>
+    </div>
+</div>
 <div class="main">
     <h1>Välkommen till Quizzard!</h1>
-    <a href="/startquiz"><button>Starta nytt spel</button></a>
-    <a  href="/logout"><button>Logga ut</button></a>
+    <a href="/startquiz">
+        <button>Starta nytt spel</button>
+    </a>
+    <a href="/logout">
+        <button>Logga ut</button>
+    </a>
 </div>
 <div class="side" id="sideright"></div>
 </body>

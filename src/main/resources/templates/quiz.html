@@ -11,11 +11,26 @@
     QUIZZARD!
     <div class="headerspace"></div>
 </header>
-<div class="side"></div>
+<div class="side">
+    <div class="formdiv">
+        <div>
+            <p>Välkommen</p>
+            <p th:text="${session.user.username}"></p>
+
+            <p th:text="${session.user.correct}"> </p>
+            <p th:text="${session.user.wrong}"> </p>
+            <p th:text="${session.user.stats}"> </p>
+            <a href="/logout">
+                <button>Logga ut</button>
+            </a>
+
+        </div>
+    </div>
+</div>
 <div class="main" th:with="question=${session.qq.nextQuestion}">
     <h1>Dags att spela QUIZZAAARD!!!!</h1>
-    <p>Antal rätt svar: <span th:text="${session.qq.right}"></span></p>
-    <p>Antal fel svar: <span th:text="${session.qq.wrong}"></span></p>
+    <!--<p>Antal rätt svar: <span th:text="${session.qq.right}"></span></p>-->
+    <!--<p>Antal fel svar: <span th:text="${session.qq.wrong}"></span></p>-->
     <h2>Fråga <span th:text="${session.qq.currentQuestion}"></span></h2>
     <p th:text="${question.text}"></p>
     <form action="/guess/1" method="POST" th:classappend="${question.choice} == 1 ? (${question.result} == 1 ? correct : wrong)">
@@ -44,18 +59,8 @@
             <span th:text="${question.optionFour}"></span></p>
     </form>
 
-    <!--<p>-->
-        <!--<button>Välj</button>-->
-        <!--<span th:text="${question.optionTwo}"></span></p>-->
-    <!--<p>-->
-        <!--<button>Välj</button>-->
-        <!--<span th:text="${question.optionThree}"></span></p>-->
-    <!--<p>-->
-        <!--<button>Välj</button>-->
-        <!--<span th:text="${question.optionFour}"></span></p>-->
 
-    <p>"rätt svar visas efter val är gjort"</p>
-    <a href="/nextquestion"><button>Nästa fråga</button></a>
+    <a th:if="${question.choice} != 0" href="/nextquestion"><button>Nästa fråga</button></a>
 </div>
 <div class="side" id="sideright"></div>
 </body>

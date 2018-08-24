@@ -74,17 +74,26 @@ public class QuizController {
 
             int max = quizRepository.getQuestionSize();
             Random rand = new Random();
+//            for(int i = 0; i < 28; i++) {
+//                QuizQuestion qq = quizRepository.getQuestion(i+1);
+//                System.out.println(qq.getId());
+//                quizCollection.addQuestion(qq);
+//            }
 
             List<Integer> list = new ArrayList<>();
             while(list.size() < 5) {
-                int number = rand.nextInt(max) +1;
-                if(!list.contains(number)) {
+                int number = rand.nextInt(100);
+                QuizQuestion qq = quizRepository.getQuestion(number);
+                if(!list.contains(number) && qq != null) {
                     list.add(number);
                 }
             }
             for(int i : list) {
                 quizCollection.addQuestion(quizRepository.getQuestion(i));
             }
+
+
+
             quizCollection.incrementQuestion();
             session.setAttribute("qq", quizCollection);
 
@@ -101,6 +110,9 @@ public class QuizController {
 
             QuizCollection qq = (QuizCollection) session.getAttribute("qq");
             if(qq.getCurrentQuestion() == qq.getSize()) {
+                User user = (User) session.getAttribute("user");
+                quizRepository.addStats(user.getId(), qq.getRight(), qq.getWrong());
+                user.setStats(quizRepository.getStats(user.getId()));
                 return new ModelAndView("result");
             }
             else {
@@ -142,6 +154,7 @@ public class QuizController {
     @PostMapping("/userlogin")
     public RedirectView login(HttpSession session, String name, String password) {
        User user =  quizRepository.login(name, password);
+       user.setStats(quizRepository.getStats(user.getId()));
        if(user != null) {
            session.setAttribute("user", user);
            return new RedirectView("menu");

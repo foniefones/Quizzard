@@ -2,6 +2,7 @@ package com.quizzard.Repository;
 
 import com.quizzard.domain.QuizCollection;
 import com.quizzard.domain.QuizQuestion;
+import com.quizzard.domain.Statistics;
 import com.quizzard.domain.User;
 
 public interface QuizRepository {
@@ -12,4 +13,7 @@ public interface QuizRepository {
     int getQuestionSize();
     QuizQuestion getQuestion(int id);
     String getAnswer(int id);
+    void addStats(int id, int correct, int wrong);
+    Statistics getStats(int id);
+
 }
