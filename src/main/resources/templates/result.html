@@ -11,11 +11,30 @@
     QUIZZARD!
     <div class="headerspace"></div>
 </header>
-<div class="side"></div>
+<div class="side">
+    <div class="formdiv">
+        <div>
+            <p>Välkommen</p>
+            <p th:text="${session.user.username}"></p>
+
+            <p th:text="${session.user.correct}"> </p>
+            <p th:text="${session.user.wrong}"> </p>
+            <p th:text="${session.user.stats}"> </p>
+            <a href="/logout">
+                <button>Logga ut</button>
+            </a>
+
+        </div>
+    </div>
+</div>
 <div class="main">
     <h1>Ditt resultat</h1>
     <div class="formdiv">
-
+        <div>
+            <p>Antal rätt svar: <span th:text="${session.qq.right}"></span></p>
+            <p>Antal fel svar: <span th:text="${session.qq.wrong}"></span></p>
+            <a href="/startquiz"><button>Starta nytt spel</button></a>
+        </div>
 
     </div>
 
