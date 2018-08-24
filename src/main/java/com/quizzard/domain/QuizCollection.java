@@ -48,8 +48,6 @@ public class QuizCollection {
         return wrong;
     }
 
-
-
     public List<QuizQuestion> getQuestions(boolean correct){
         List<QuizQuestion> correctList = new ArrayList<>();
         for(QuizQuestion question : questions){
